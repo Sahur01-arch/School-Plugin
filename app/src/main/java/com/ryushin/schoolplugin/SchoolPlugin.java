@@ -1,17 +1,20 @@
 package com.ryushin.schoolplugin;
 
+import com.ryushin.schoolplugin.commands.AdminCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.ryushin.ryulib.RyuPlugin;
 
-public class SchoolPlugin extends JavaPlugin {
+public class SchoolPlugin extends RyuPlugin {
 
   @Override
-  public onEnable() {
-    getLogger.("[SchoolPlugin] Berhasil Dijalankan");
+  public void onEnable() {
+    new AdminCommand(this).register();
+    info("[SchoolPlugin] Berhasil Dijalankan");
   }
   
   @Override
-  public onDisable() {
-    getLogger.info("[SchoolPlugin] Berhasil Dimatikan");
+  public void onDisable() {
+    info("[SchoolPlugin] Berhasil Dimatikan");
+    super.onDisable();
   }
 }

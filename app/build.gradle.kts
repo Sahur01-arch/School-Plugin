@@ -8,9 +8,9 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     alias(libs.plugins.kotlin.jvm)
-
+    
     // Apply the application plugin to add support for building a CLI application in Java.
-    id 'java'
+    id("java")
     id("com.gradleup.shadow") version "8.3.5"
 }
 
@@ -27,7 +27,7 @@ repositories {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:26.2.build.+")
 
-    implementation("com.ryushin:ryulib:2.1.0")
+    implementation("com.ryushin:RyuLib:3.0.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -40,7 +40,7 @@ java {
 tasks {
   shadowJar {
     archiveClassifier.set("")
-    relocate("org.sqlite", "com.ryushin.schoolplugin.libs.sqlite")
+    // relocate("org.sqlite", "com.ryushin.schoolplugin.libs.sqlite")
   }
   build {
     dependsOn(shadowJar)
