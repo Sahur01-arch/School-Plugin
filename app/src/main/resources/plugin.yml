@@ -1,0 +1,6 @@
+name: School-Plugin
+version: '1.0.0+ALPHA'
+main: com.ryushin.schoolplugin.SchoolPlugin
+author: Ryushin 
+api-version: '1.21'
+
