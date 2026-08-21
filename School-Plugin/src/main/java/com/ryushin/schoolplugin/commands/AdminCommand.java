@@ -14,11 +14,25 @@ public class AdminCommand {
 
   public void register() {
     plugin.commandManager().command("test")
-      .permission("server.admin", "§cAkses Ditolak")
-      .usage("/test")
-      .handler((sender, args) -> {
-        sender.sendMessage("Pong!");
-      })
-      .register();
+        .permission("server.admin", "§cAkses Ditolak")
+        .usage("/test")
+        .handler((sender, args) -> {
+          if (args.length == 0) {
+            sender.sendMessage("gunakan /test ping|reload");
+            return;
+          }
+
+          switch (args[0].toLowerCase()) {
+            case "ping" -> {
+              sender.sendMessage("pong");
+            }
+            case "reload" -> {
+              plugin.configs().reloadAll();
+              sender.sendMessage("§eConfig di reload");
+            }
+            default -> sender.sendMessage("§cSubCommand tidak dikenal " + args[0]);
+          }
+        })
+        .register();
   }
 }
