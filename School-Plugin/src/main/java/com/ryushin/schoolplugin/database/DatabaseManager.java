@@ -1,8 +1,6 @@
 package com.ryushin.schoolplugin.database;
 
 import com.ryushin.ryulib.RyuPlugin;
-import com.ryushin.schoolplugin.manager.OrganisasiManager;
-import com.ryushin.schoolplugin.manager.ReportCardManager;
 
 import java.io.File;
 import java.sql.*;
