@@ -55,7 +55,7 @@ public class MenuManager {
         gui.getInventory().setItem(12, tugas);
         gui.getInventory().setItem(14, koperasi);
         gui.getInventory().setItem(16, organisasi);
-        gui.getInventory().setItem(28, report);
+        gui.getInventory().setItem(20, report);
         gui.getInventory().setItem(22, reload);
         gui.getInventory().setItem(26, close);
 
@@ -63,7 +63,7 @@ public class MenuManager {
         gui.action(12, (p, inv) -> { p.closeInventory(); p.performCommand("tugas"); });
         gui.action(14, (p, inv) -> { p.closeInventory(); p.performCommand("koperasi menu"); });
         gui.action(16, (p, inv) -> { p.closeInventory(); p.performCommand("organisasi daftar"); });
-        gui.action(28, (p, inv) -> { p.closeInventory(); p.performCommand("report view " + p.getName()); });
+        gui.action(20, (p, inv) -> { p.closeInventory(); p.performCommand("report view " + p.getName()); });
         gui.action(22, (p, inv) -> {
             p.closeInventory();
             if (!p.hasPermission("server.menu.reload") && !p.isOp()) {

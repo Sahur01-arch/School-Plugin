@@ -3,6 +3,7 @@ version: '1.1.0-SNAPSHOT'
 main: com.ryushin.schoolplugin.SchoolPlugin
 author: Ryushin 
 api-version: '1.21'
+softdepend: [LuckPerms, PlaceholderAPI]
 commands:
   test:
     description: Perintah admin / test

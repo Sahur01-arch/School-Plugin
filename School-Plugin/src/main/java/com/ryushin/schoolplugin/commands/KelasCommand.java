@@ -59,6 +59,7 @@ public class KelasCommand {
                         classroomManager.removeGroup(args[1], p);
                     }
                     case "list" -> {
+                        if (!isLuckPermsAvailable(sender)) return;
                         var lp = LuckPermsProvider.get();
                         sender.sendMessage("§6=== Daftar Kelas ===");
                         for (String kelasName : classroomManager.getSchoolClasses()) {
@@ -75,6 +76,7 @@ public class KelasCommand {
                             sender.sendMessage(MessageHelper.get("kelas.usage"));
                             return;
                         }
+                        if (!isLuckPermsAvailable(sender)) return;
                         var lp = LuckPermsProvider.get();
                         Group group = lp.getGroupManager().getGroup(args[1]);
                         if (group == null) {
@@ -88,5 +90,13 @@ public class KelasCommand {
                 }
             })
             .register();
+    }
+
+    private boolean isLuckPermsAvailable(org.bukkit.command.CommandSender sender) {
+        if (org.bukkit.Bukkit.getPluginManager().getPlugin("LuckPerms") == null) {
+            sender.sendMessage("§cLuckPerms tidak terpasang! Fitur kelas membutuhkan LuckPerms.");
+            return false;
+        }
+        return true;
     }
 }
