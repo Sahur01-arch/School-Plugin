@@ -18,3 +18,8 @@ commands:
     description: Manajemen organisasi / ekskul
   report:
     description: Manajemen rapor / nilai
+
+permissions:
+  server.menu.reload:
+    description: Mengizinkan me-reload config dari menu (tindakan sensitif)
+    default: op

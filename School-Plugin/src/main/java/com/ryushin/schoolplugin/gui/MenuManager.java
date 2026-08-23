@@ -66,6 +66,10 @@ public class MenuManager {
         gui.action(28, (p, inv) -> { p.closeInventory(); p.performCommand("report view " + p.getName()); });
         gui.action(22, (p, inv) -> {
             p.closeInventory();
+            if (!p.hasPermission("server.menu.reload") && !p.isOp()) {
+                p.sendMessage("§cKamu tidak punya izin untuk me-reload config.");
+                return;
+            }
             plugin.configs().reloadAll();
             p.sendMessage("§eConfig berhasil di-reload!");
         });
