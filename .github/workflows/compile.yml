@@ -14,8 +14,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Root
         uses: actions/checkout@v4
+        with:
+          path: root
+
+      - name: Checkout RyuLib
+        uses: actions/checkout@v4
+        with:
+          repository: Sahur01-arch/RyuLib
+          path: root/RyuLib
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -25,9 +33,9 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '9.7.0'
 
-      - name: Build and publish RyuLib to local Maven repository
-        run: ./gradlew :RyuLib:build :RyuLib:publishToMavenLocal --no-daemon
-
-      - name: Build School-Plugin
-        run: ./gradlew :School-Plugin:build --no-daemon --no-configuration-cache
+      - name: Build Project
+        working-directory: root
+        run: ./gradlew build --no-daemon --no-configuration-cache
