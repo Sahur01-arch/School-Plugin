@@ -27,9 +27,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build and publish RyuLib to local Maven repository
-        working-directory: ./RyuLib
-        run: ./gradlew build publishToMavenLocal --no-daemon
+        run: ./gradlew :RyuLib:build :RyuLib:publishToMavenLocal --no-daemon
 
       - name: Build School-Plugin
-        working-directory: ./School-Plugin
-        run: ./gradlew build --no-daemon --no-configuration-cache
+        run: ./gradlew :School-Plugin:build --no-daemon --no-configuration-cache
