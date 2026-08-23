@@ -32,7 +32,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:26.2.build.+")
     compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("net.luckperms:api:5.4")
-    implementation("com.ryushin:RyuLib:3.0.0")
+    implementation(project(":RyuLib"))
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
