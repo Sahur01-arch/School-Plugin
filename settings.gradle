@@ -11,4 +11,5 @@ plugins {
 }
 
 rootProject.name = 'School-Plugin'
+include('RyuLib')
 include('School-Plugin')
