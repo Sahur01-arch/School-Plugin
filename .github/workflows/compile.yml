@@ -37,3 +37,9 @@ jobs:
       - name: Build Project
         working-directory: root
         run: ./gradlew build --no-daemon --no-configuration-cache
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: school-plugin-jar
+          path: root/School-Plugin/build/libs/*.jar
