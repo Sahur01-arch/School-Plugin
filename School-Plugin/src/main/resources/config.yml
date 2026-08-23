@@ -1,0 +1,49 @@
+prefix: "§8[§bSchool§8] §r"
+
+messages:
+  welcome: "§aSelamat Datang Di Server Sekolah!"
+  access_denied: "§cKamu tidak punya izin untuk melakukan ini."
+  player_only: "§cCommand ini hanya bisa dijalankan di in-game."
+  reload_success: "§eConfig berhasil di-reload!"
+  
+  kelas:
+    created: "§aKelas {kelas} berhasil dibuat di LuckPerms."
+    deleted: "§aGroup {kelas} berhasil dihapus."
+    not_found: "§cGroup {kelas} tidak ditemukan."
+    no_permission: "§cKamu tidak punya izin untuk mengelola kelas."
+    not_registered: "§cKamu belum terdaftar di kelas manapun"
+    invalid_class: "§cGrup kamu ('{kelas}') bukan kelas yang valid."
+    usage: "§cGunakan: /kelas tambah|hapus|list|info|siswa|masukkan|keluarkan|setweight"
+
+  tugas:
+    no_item: "§cKamu tidak memegang buku apapun."
+    not_book: "§cItem di tangan bukan Book and Quill / Written Book"
+    unsigned_book: "§cBuku belum ditandatangani (sign). Tanda tangani dulu sebelum submit"
+    chest_full: "§cChest Tugas {kelas} Penuh. Hubungi Guru"
+    success_submit: "§aTugas {judul} berhasil dikumpulkan ke kelas {kelas}."
+    teacher_only: "§cSebagai Guru/Staff, gunakan '/tugas cek <kelas>' untuk memeriksa tugas."
+    no_permission: "§cKamu tidak memiliki izin untuk memeriksa tugas kelas."
+    usage: "§cGunakan: /tugas [cek <kelas>]"
+
+  koperasi:
+    balance: "§6Saldo kamu: §e{balance}"
+    invalid_amount: "§cJumlah harus berupa angka positif."
+    deposit_success: "§aBerhasil deposit {amount}. Saldo sekarang: {balance}"
+    withdraw_success: "§aBerhasil menarik {amount}. Saldo sekarang: {balance}"
+    insufficient_funds: "§cSaldo tidak mencukupi. Saldo kamu: {balance}"
+    buy_success: "§aBerhasil membeli {item} seharga {price}. Saldo: {balance}"
+    item_not_found: "§cItem '{item}' tidak tersedia di kantin."
+    usage: "§cGunakan: /koperasi saldo|deposit|tarik|beli|menu|tambahmenu|hapusmenu|riwayat"
+
+  organisasi:
+    created: "§aOrganisasi '{org}' berhasil dibuat."
+    deleted: "§aOrganisasi '{org}' berhasil dihapus."
+    already_exists: "§cOrganisasi '{org}' sudah ada."
+    not_found: "§cOrganisasi '{org}' tidak ditemukan."
+    no_permission: "§cKamu tidak punya izin untuk mengelola organisasi."
+    usage: "§cGunakan: /organisasi buat|hapus|tambah|keluar|jabatan|lihat|daftar|saya"
+
+  report:
+    set_success: "§aNilai {subject} untuk {player} berhasil diatur menjadi {grade}. Rata-rata: {average}"
+    not_found: "§cData rapor untuk {player} tidak ditemukan."
+    usage: "§cGunakan: /report set <nama_player> <mapel> <nilai> atau /report view <nama_player>"

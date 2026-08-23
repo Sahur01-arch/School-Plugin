@@ -39,5 +39,7 @@ public class MenuManager {
     });
 
     gui.action(13, (p, inv) -> player.closeInventory());
+
+    gui.open(player);
   }
 }
