@@ -7,6 +7,8 @@ import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.group.Group;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class KelasCommand {
 
     private final RyuPlugin plugin;
@@ -21,6 +23,15 @@ public class KelasCommand {
         plugin.commandManager().command("kelas")
             .permission("server.kelas", MessageHelper.get("access_denied"))
             .usage("/kelas <tambah|hapus|list|info|siswa|masukkan|keluarkan|setweight>")
+            .tab((sender, args) -> {
+                if (args.length == 1) {
+                    return List.of("tambah", "hapus", "list", "info", "siswa", "masukkan", "keluarkan", "setweight");
+                }
+                if (args.length == 2 && !args[0].equalsIgnoreCase("list")) {
+                    return classroomManager.getSchoolClasses();
+                }
+                return List.of();
+            })
             .handler((sender, args) -> {
                 if (args.length == 0) {
                     sender.sendMessage(MessageHelper.get("kelas.usage"));

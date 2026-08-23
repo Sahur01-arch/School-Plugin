@@ -16,6 +16,7 @@ public class AdminCommand {
     plugin.commandManager().command("test")
         .permission("server.admin", "§cAkses Ditolak")
         .usage("/test")
+        .tab((sender, args) -> args.length == 1 ? List.of("ping", "reload") : List.of())
         .handler((sender, args) -> {
           if (args.length == 0) {
             sender.sendMessage("gunakan /test ping|reload");

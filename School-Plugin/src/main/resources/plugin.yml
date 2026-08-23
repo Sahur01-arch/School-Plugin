@@ -5,10 +5,16 @@ author: Ryushin
 api-version: '1.21'
 commands:
   test:
-    description: Test Command
-  panduan:
-    description: testing
+    description: Perintah admin / test
+  menu:
+    description: Buka menu konfigurasi sekolah
   kelas:
-    description: Kelas Command
+    description: Manajemen kelas (LuckPerms)
   tugas:
-    description: Tugas Command
+    description: Pengumpulan tugas siswa
+  koperasi:
+    description: Koperasi / kantin sekolah
+  organisasi:
+    description: Manajemen organisasi / ekskul
+  report:
+    description: Manajemen rapor / nilai

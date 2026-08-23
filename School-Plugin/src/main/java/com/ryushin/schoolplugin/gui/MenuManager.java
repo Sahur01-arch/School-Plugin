@@ -5,41 +5,72 @@ import com.ryushin.ryulib.gui.Gui;
 import com.ryushin.ryulib.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import com.ryushin.schoolplugin.manager.BookGuide;
 
 public class MenuManager {
 
-  private final RyuPlugin plugin;
+    private final RyuPlugin plugin;
 
-  public MenuManager(RyuPlugin plugin) {
-    this.plugin = plugin;
-  }
+    public MenuManager(RyuPlugin plugin) {
+        this.plugin = plugin;
+    }
 
-  public void open(Player player) {
+    public void open(Player player) {
+        Gui gui = plugin.guis().create("§8[ Konfigurasi School ]", 3);
 
-    Gui gui = plugin.guis().create("§8[ MENU ]", 3);
+        var kelas = ItemBuilder.of(Material.BOOK)
+            .name("§aManajemen Kelas")
+            .lore("§7Klik untuk membuka /kelas list")
+            .build();
 
-    ItemStack panduanBook = ItemBuilder.of(Material.WRITABLE_BOOK)
-        .name("§aPanduan")
-        .lore("§7Klik Untuk Menampilkan Panduan")
-        .build();
+        var tugas = ItemBuilder.of(Material.WRITTEN_BOOK)
+            .name("§aTugas")
+            .lore("§7Klik untuk membuka /tugas")
+            .build();
 
-    ItemStack closeItem = ItemBuilder.of(Material.BARRIER)
-        .name("§cTutup Menu")
-        .build();
+        var koperasi = ItemBuilder.of(Material.CHEST)
+            .name("§aKoperasi")
+            .lore("§7Klik untuk membuka /koperasi menu")
+            .build();
 
-    gui.getInventory().setItem(11, panduanBook);
-    gui.getInventory().setItem(13, closeItem);
+        var organisasi = ItemBuilder.of(Material.EMERALD)
+            .name("§aOrganisasi")
+            .lore("§7Klik untuk membuka /organisasi daftar")
+            .build();
 
-    gui.action(11, (p, inv) -> {
-      player.sendMessage("§a[School] Membuka Panduan....");
-      player.closeInventory();
-      BookGuide.open(player);
-    });
+        var report = ItemBuilder.of(Material.PAPER)
+            .name("§aRapor / Nilai")
+            .lore("§7Klik untuk melihat rapor kamu")
+            .build();
 
-    gui.action(13, (p, inv) -> player.closeInventory());
+        var reload = ItemBuilder.of(Material.ANVIL)
+            .name("§eReload Config")
+            .lore("§7Klik untuk reload config.yml")
+            .build();
 
-    gui.open(player);
-  }
+        var close = ItemBuilder.of(Material.BARRIER)
+            .name("§cTutup")
+            .build();
+
+        gui.getInventory().setItem(10, kelas);
+        gui.getInventory().setItem(12, tugas);
+        gui.getInventory().setItem(14, koperasi);
+        gui.getInventory().setItem(16, organisasi);
+        gui.getInventory().setItem(28, report);
+        gui.getInventory().setItem(22, reload);
+        gui.getInventory().setItem(26, close);
+
+        gui.action(10, (p, inv) -> { p.closeInventory(); p.performCommand("kelas list"); });
+        gui.action(12, (p, inv) -> { p.closeInventory(); p.performCommand("tugas"); });
+        gui.action(14, (p, inv) -> { p.closeInventory(); p.performCommand("koperasi menu"); });
+        gui.action(16, (p, inv) -> { p.closeInventory(); p.performCommand("organisasi daftar"); });
+        gui.action(28, (p, inv) -> { p.closeInventory(); p.performCommand("report view " + p.getName()); });
+        gui.action(22, (p, inv) -> {
+            p.closeInventory();
+            plugin.configs().reloadAll();
+            p.sendMessage("§eConfig berhasil di-reload!");
+        });
+        gui.action(26, (p, inv) -> p.closeInventory());
+
+        gui.open(player);
+    }
 }

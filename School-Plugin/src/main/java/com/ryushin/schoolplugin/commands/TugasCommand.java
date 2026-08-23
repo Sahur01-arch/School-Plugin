@@ -6,6 +6,8 @@ import com.ryushin.schoolplugin.manager.ClassroomManager;
 import com.ryushin.schoolplugin.util.MessageHelper;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class TugasCommand {
 
     private final RyuPlugin plugin;
@@ -22,6 +24,11 @@ public class TugasCommand {
         plugin.commandManager().command("tugas")
             .permission("server.tugas.use", MessageHelper.get("access_denied"))
             .usage("/tugas [cek <kelas>]")
+            .tab((sender, args) -> {
+                if (args.length == 1) return List.of("cek");
+                if (args.length == 2 && args[0].equalsIgnoreCase("cek")) return classroomManager.getSchoolClasses();
+                return List.of();
+            })
             .handler((sender, args) -> {
                 if (!(sender instanceof Player player)) {
                     sender.sendMessage(MessageHelper.get("player_only"));
