@@ -5,9 +5,11 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
+import net.luckperms.api.model.user.UserManager;
 import net.luckperms.api.node.NodeType;
 import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -95,6 +97,70 @@ public class ClassroomManager {
             plugin.error("Failed to get class for UUID: " + uuidString + " - " + e.getMessage());
         }
         return null;
+    }
+
+    public void setClassWeight(String className, int weight) {
+        Bukkit.getScheduler().runTask(plugin, () ->
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp group " + className + " setweight " + weight));
+    }
+
+    public void addStudentToClass(String playerName, String className, CommandSender sender) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            try {
+                LuckPerms lp = LuckPermsProvider.get();
+                UserManager userManager = lp.getUserManager();
+                UUID uuid = userManager.lookupUniqueId(playerName).join();
+                if (uuid == null) {
+                    reply(sender, "§cPlayer '" + playerName + "' tidak ditemukan.");
+                    return;
+                }
+                User user = userManager.loadUser(uuid).join();
+                boolean already = user.getNodes(NodeType.INHERITANCE).stream()
+                        .anyMatch(node -> node.getGroupName().equalsIgnoreCase(className));
+                if (already) {
+                    reply(sender, "§e" + playerName + " sudah berada di kelas " + className + ".");
+                    return;
+                }
+                user.data().add(InheritanceNode.builder(className.toLowerCase()).build());
+                userManager.saveUser(user);
+                reply(sender, "§a" + playerName + " berhasil dimasukkan ke kelas " + className + ".");
+            } catch (Exception e) {
+                plugin.error("Failed to add student to class: " + e.getMessage());
+                reply(sender, "§cGagal memasukkan siswa: " + e.getMessage());
+            }
+        });
+    }
+
+    public void removeStudentFromClass(String playerName, String className, CommandSender sender) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            try {
+                LuckPerms lp = LuckPermsProvider.get();
+                UserManager userManager = lp.getUserManager();
+                UUID uuid = userManager.lookupUniqueId(playerName).join();
+                if (uuid == null) {
+                    reply(sender, "§cPlayer '" + playerName + "' tidak ditemukan.");
+                    return;
+                }
+                User user = userManager.loadUser(uuid).join();
+                boolean member = user.getNodes(NodeType.INHERITANCE).stream()
+                        .anyMatch(node -> node.getGroupName().equalsIgnoreCase(className));
+                if (!member) {
+                    reply(sender, "§e" + playerName + " tidak berada di kelas " + className + ".");
+                    return;
+                }
+                user.data().remove(InheritanceNode.builder(className.toLowerCase()).build());
+                userManager.saveUser(user);
+                reply(sender, "§a" + playerName + " berhasil dikeluarkan dari kelas " + className + ".");
+            } catch (Exception e) {
+                plugin.error("Failed to remove student from class: " + e.getMessage());
+                reply(sender, "§cGagal mengeluarkan siswa: " + e.getMessage());
+            }
+        });
+    }
+
+    private void reply(CommandSender sender, String message) {
+        if (sender == null) return;
+        Bukkit.getScheduler().runTask(plugin, () -> sender.sendMessage(message));
     }
 
     public ClassCheckResult validateStudentClass(Player player) {
